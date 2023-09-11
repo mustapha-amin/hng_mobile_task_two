@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hng_mobile_task_two/models/project.dart';
 import 'package:hng_mobile_task_two/providers/cv_data_provider.dart';
 import 'package:hng_mobile_task_two/widgets/dialog.dart';
+import 'package:hng_mobile_task_two/widgets/spacing.dart';
+
+import '../../utils/textstyle.dart';
 
 class ExperienceSection extends StatefulWidget {
   CVDataContainer? cvDataContainer;
@@ -25,14 +28,14 @@ class _ExperienceSectionState extends State<ExperienceSection> {
       children: [
         Text(
           "Skills",
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          style: kTextStyle(28, isBold: true),
         ),
         ...cvDataContainer.cvData.skills!.map(
           (skill) => Row(
             children: [
               SizedBox(
                 width: size.width * .6,
-                child: Text(skill),
+                child: Text(skill, style: kTextStyle(15)),
               ),
               IconButton(
                 onPressed: () {
@@ -46,6 +49,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                       return CustomAlertDialog(
                         title: "Edit Skill",
                         content: TextField(
+                          style: kTextStyle(15),
                           controller: skillController,
                         ),
                         action: () => cvDataContainer.editSkill(
@@ -65,8 +69,10 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                     builder: (context) {
                       return CustomAlertDialog(
                         title: "Delete Skill",
-                        content:
-                            const Text("Do you want to delete this skill?"),
+                        content: Text(
+                          "Do you want to delete this skill?",
+                          style: kTextStyle(15),
+                        ),
                         action: () => cvDataContainer.removeFromSkills(skill),
                         actionTitle: "Yes",
                         dismissalTitle: "No",
@@ -79,17 +85,25 @@ class _ExperienceSectionState extends State<ExperienceSection> {
             ],
           ),
         ),
-        TextButton(
+        VerticalSpacing(20),
+        OutlinedButton(
           onPressed: () {},
-          child: const Text("Add a skill"),
+          child: Text(
+            "Add a skill",
+            style: kTextStyle(15),
+          ),
         ),
+        VerticalSpacing(20),
         ...cvDataContainer.cvData.projects!.map(
           (e) => Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(e.title!),
+                  Text(
+                    e.title!,
+                    style: kTextStyle(18, isBold: true),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -99,11 +113,15 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                   )
                 ],
               ),
-              Text(e.detail!),
+              Text(
+                e.detail!,
+                style: kTextStyle(15),
+              ),
             ],
           ),
         ),
-        TextButton(
+        VerticalSpacing(20),
+        OutlinedButton(
           onPressed: () {
             showDialog(
               context: context,
@@ -132,7 +150,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
               },
             );
           },
-          child: const Text("Add a project"),
+          child: Text("Add a project", style: kTextStyle(15)),
         ),
       ],
     );

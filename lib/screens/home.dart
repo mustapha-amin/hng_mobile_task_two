@@ -4,6 +4,8 @@ import 'package:hng_mobile_task_two/providers/cv_data_provider.dart';
 import 'package:hng_mobile_task_two/screens/edit/edit_page.dart';
 import 'package:hng_mobile_task_two/widgets/spacing.dart';
 
+import '../utils/textstyle.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -22,9 +24,9 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "CV",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          style: kTextStyle(30, isBold: true),
         ),
         elevation: 0,
         actions: [
@@ -46,9 +48,9 @@ class _HomePageState extends State<HomePage> {
               },
               icon: Row(
                 children: [
-                  const Text(
+                  Text(
                     "Edit details",
-                    style: TextStyle(fontSize: 16),
+                    style: kTextStyle(16),
                   ),
                   HorizontalSpacing(5),
                   const Icon(Icons.edit),
@@ -65,7 +67,6 @@ class _HomePageState extends State<HomePage> {
             height: size.height * .18,
             child: Scrollbar(
               controller: scrollController,
-              thumbVisibility: true,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(bottom: 10),
                 scrollDirection: Axis.horizontal,
@@ -87,19 +88,16 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           "${cvData.fullName}",
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: kTextStyle(25, isBold: true),
                           softWrap: true,
                         ),
                         Text(
                           "Slack username: ${cvData.slackUsername}",
-                          style: const TextStyle(fontSize: 15),
+                          style: kTextStyle(14),
                         ),
                         Text(
                           "Github handle: ${cvData.githubHandle}",
-                          style: const TextStyle(fontSize: 15),
+                          style: kTextStyle(14),
                         ),
                       ],
                     )
@@ -109,38 +107,41 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           VerticalSpacing(20),
-          Text(cvData.bio!),
+          Text(
+            cvData.bio!,
+            style: kTextStyle(14),
+          ),
           const Divider(
             color: Colors.white,
           ),
-          const Text(
+          Text(
             "Education",
-            style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+            style: kTextStyle(23, isBold: true),
           ),
           Text(
             cvData.education!.school!,
-            style: const TextStyle(fontSize: 15),
+            style: kTextStyle(15),
           ),
           Text(
             cvData.education!.department!,
-            style: const TextStyle(fontSize: 15),
+            style: kTextStyle(15),
           ),
           VerticalSpacing(15),
-          const Text(
+          Text(
             "Skills",
-            style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+            style: kTextStyle(23, isBold: true),
           ),
           VerticalSpacing(5),
           ...cvData.skills!.map(
             (e) => Text(
               '• $e',
-              style: const TextStyle(fontSize: 15),
+              style: kTextStyle(15),
             ),
           ),
           VerticalSpacing(15),
-          const Text(
+          Text(
             "Projects",
-            style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+            style: kTextStyle(23, isBold: true),
           ),
           ...cvData.projects!.map(
             (e) => Padding(
@@ -150,9 +151,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Text(
                     "• ${e.title}:",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: kTextStyle(15, isBold: true),
                   ),
-                  Text(" ${e.detail}"),
+                  Text(" ${e.detail}", style: kTextStyle(15)),
                 ],
               ),
             ),

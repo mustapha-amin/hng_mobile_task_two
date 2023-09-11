@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/textstyle.dart';
+
 class CustomAlertDialog extends StatelessWidget {
   String? title;
   Widget? content;
@@ -19,7 +21,10 @@ class CustomAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title!),
+      title: Text(
+        title!,
+        style: kTextStyle(20, isBold: true),
+      ),
       content: content,
       actions: [
         TextButton(
@@ -27,11 +32,17 @@ class CustomAlertDialog extends StatelessWidget {
             action;
             Navigator.of(context).pop();
           },
-          child: Text(actionTitle!),
+          child: Text(
+            actionTitle!,
+            style: kTextStyle(15),
+          ),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(dismissalTitle!),
+          child: Text(
+            dismissalTitle!,
+            style: kTextStyle(15).copyWith(color: Colors.red),
+          ),
         ),
       ],
     );

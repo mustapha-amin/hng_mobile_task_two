@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hng_mobile_task_two/utils/textstyle.dart';
+import 'package:hng_mobile_task_two/widgets/spacing.dart';
 
 class CustomSegmentedButton extends StatefulWidget {
   Color? containerColor, titleAndIconColor;
@@ -30,9 +32,12 @@ class _CustomSegmentedButtonState extends State<CustomSegmentedButton> {
             widget.iconData,
             color: widget.titleAndIconColor,
           ),
+          VerticalSpacing(5),
           Text(
             widget.title!,
-            style: TextStyle(color: widget.titleAndIconColor),
+            style: kTextStyle(14).copyWith(
+              color: widget.titleAndIconColor,
+            ),
           ),
         ],
       ),

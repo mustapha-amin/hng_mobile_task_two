@@ -3,6 +3,7 @@ import 'package:hng_mobile_task_two/providers/cv_data_provider.dart';
 import 'package:hng_mobile_task_two/screens/edit/about.dart';
 import 'package:hng_mobile_task_two/screens/edit/education.dart';
 import 'package:hng_mobile_task_two/screens/edit/experience.dart';
+import 'package:hng_mobile_task_two/utils/textstyle.dart';
 import 'package:hng_mobile_task_two/widgets/segmented_button.dart';
 import 'package:hng_mobile_task_two/widgets/spacing.dart';
 
@@ -22,7 +23,11 @@ class _EditPageState extends State<EditPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edit CV Info"),
+        title: Text(
+          "Edit CV Info",
+          style: kTextStyle(20, isBold: true),
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {

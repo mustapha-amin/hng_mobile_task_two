@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hng_mobile_task_two/models/cv_data.dart';
 import 'package:hng_mobile_task_two/providers/cv_data_provider.dart';
+import 'package:hng_mobile_task_two/utils/textstyle.dart';
 
 import '../../widgets/spacing.dart';
 
@@ -58,28 +59,34 @@ class _AboutMeSectionState extends State<AboutMeSection> {
   InputDecoration textDecoration(String label) => InputDecoration(
         border: const OutlineInputBorder(),
         labelText: label,
+        labelStyle: kTextStyle(15),
       );
 
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: const EdgeInsets.only(top: 10),
       children: [
         TextFormField(
+          style: kTextStyle(15),
           controller: nameController,
           decoration: textDecoration("Name"),
         ),
         VerticalSpacing(15),
         TextFormField(
+          style: kTextStyle(15),
           controller: slackUsernameController,
           decoration: textDecoration("Slack username"),
         ),
         VerticalSpacing(15),
         TextFormField(
+          style: kTextStyle(15),
           controller: githubHandleController,
           decoration: textDecoration("Github handle"),
         ),
         VerticalSpacing(15),
         TextFormField(
+          style: kTextStyle(15),
           controller: bioController,
           maxLines: 5,
           decoration: const InputDecoration(

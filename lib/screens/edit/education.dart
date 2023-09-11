@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_mobile_task_two/providers/cv_data_provider.dart';
 
 import '../../models/cv_data.dart';
+import '../../utils/textstyle.dart';
 import '../../widgets/spacing.dart';
 
 class EducationSection extends StatefulWidget {
@@ -47,6 +48,7 @@ class _EducationSectionState extends State<EducationSection> {
   InputDecoration textDecoration(String label) => InputDecoration(
         border: const OutlineInputBorder(),
         labelText: label,
+        labelStyle: kTextStyle(15),
       );
 
   @override
@@ -54,11 +56,13 @@ class _EducationSectionState extends State<EducationSection> {
     return ListView(
       children: [
         TextFormField(
+          style: kTextStyle(15),
           controller: schoolController,
           decoration: textDecoration("School"),
         ),
         VerticalSpacing(8),
         TextFormField(
+          style: kTextStyle(15),
           controller: departmentController,
           decoration: textDecoration("Slack username"),
         ),
