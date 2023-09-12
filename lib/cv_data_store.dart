@@ -16,7 +16,8 @@ class CVDataStore {
     education: Education(
       school: "Bayero University, Kano",
       department: "Software Engineering",
-      startDate: DateTime(2019, 1),
+      startDate: DateTime(2019, 1, 1),
+      endDate: DateTime(2024, 1, 1),
     ),
     skills: [
       "Flutter",

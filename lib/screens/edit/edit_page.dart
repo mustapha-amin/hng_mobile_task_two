@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hng_mobile_task_two/providers/cv_data_provider.dart';
 import 'package:hng_mobile_task_two/screens/edit/about.dart';
@@ -32,6 +34,7 @@ class _EditPageState extends State<EditPage> {
           IconButton(
             onPressed: () {
               Navigator.pop(context);
+              log(cvDataContainer.cvData.education!.startDate!.day.toString());
             },
             icon: const Icon(Icons.done),
           )

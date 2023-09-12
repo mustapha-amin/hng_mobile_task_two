@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_mobile_task_two/providers/cv_data_provider.dart';
+import 'package:hng_mobile_task_two/utils/extensions.dart';
 
 import '../../models/cv_data.dart';
 import '../../utils/textstyle.dart';
@@ -14,7 +15,11 @@ class EducationSection extends StatefulWidget {
 
 class _EducationSectionState extends State<EducationSection> {
   CVDataContainer cvDataContainer = CVDataContainer();
-  late TextEditingController schoolController, departmentController;
+
+  late TextEditingController schoolController,
+      departmentController,
+      startDateController,
+      endDateController;
 
   @override
   void initState() {
@@ -22,6 +27,13 @@ class _EducationSectionState extends State<EducationSection> {
     schoolController = TextEditingController(text: cvData.education!.school);
     departmentController =
         TextEditingController(text: cvData.education!.department);
+
+    startDateController = TextEditingController(
+      text: cvData.education!.startDate!.formattedDate,
+    );
+    endDateController = TextEditingController(
+      text: cvData.education!.endDate!.formattedDate,
+    );
     schoolController.addListener(() {
       cvDataContainer.updateCvData(
         cvData.copyWith(
@@ -51,8 +63,45 @@ class _EducationSectionState extends State<EducationSection> {
         labelStyle: kTextStyle(15),
       );
 
+  Future<void> _selectDate(
+      BuildContext context, DateTime selectedDate, bool isStartDate) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1900, 1, 1),
+        lastDate: DateTime(2101, 1, 1),
+        builder: (context, child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+                textTheme: const TextTheme(
+              headlineMedium: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 30,
+                letterSpacing: 0,
+                fontFamily: "Montserrat",
+              ),
+            )),
+            child: child!,
+          );
+        });
+
+    if (picked != null && picked != selectedDate) {
+      // Do something with the selected date.
+      setState(() {
+        selectedDate = picked;
+      });
+
+      isStartDate
+          ? cvDataContainer.updateStartDate(selectedDate)
+          : cvDataContainer.updateEndDate(selectedDate);
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    CVData cvData = cvDataContainer.cvData;
     return ListView(
       children: [
         TextFormField(
@@ -64,9 +113,50 @@ class _EducationSectionState extends State<EducationSection> {
         TextFormField(
           style: kTextStyle(15),
           controller: departmentController,
-          decoration: textDecoration("Slack username"),
+          decoration: textDecoration("Department"),
         ),
         VerticalSpacing(8),
+        GestureDetector(
+          onTap: () {
+            _selectDate(context, cvData.education!.startDate!, true);
+          },
+          child: SingleChildScrollView(
+            child: Container(
+              width: size.width,
+              height: 63,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                cvData.education!.startDate!.formattedDate,
+                style: kTextStyle(15),
+              ),
+            ),
+          ),
+        ),
+        VerticalSpacing(8),
+        GestureDetector(
+          onTap: () {
+            _selectDate(context, cvData.education!.endDate!, false);
+          },
+          child: Container(
+            width: size.width,
+            height: 63,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 10),
+            child: Text(
+              cvData.education!.endDate!.formattedDate,
+              style: kTextStyle(15),
+            ),
+          ),
+        ),
       ],
     );
   }

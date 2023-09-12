@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_mobile_task_two/models/cv_data.dart';
 import 'package:hng_mobile_task_two/providers/cv_data_provider.dart';
 import 'package:hng_mobile_task_two/screens/edit/edit_page.dart';
+import 'package:hng_mobile_task_two/utils/extensions.dart';
 import 'package:hng_mobile_task_two/widgets/spacing.dart';
 
 import '../utils/textstyle.dart';
@@ -14,10 +15,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  CVDataContainer cvDataContainer = CVDataContainer();
+
+  @override
+  void initState() {
+    cvDataContainer.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    CVDataContainer cvDataContainer = CVDataContainer();
+
     CVData cvData = cvDataContainer.cvData;
     ScrollController scrollController = ScrollController();
     //String formattedDate = '${cvData.education.s}, ${date.year}';
@@ -112,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       HorizontalSpacing(10),
                       Text(
-                        '+2340${cvData.phoneNumber}',
+                        '+234${cvData.phoneNumber}',
                         style: kTextStyle(13),
                       )
                     ],
@@ -173,6 +184,20 @@ class _HomePageState extends State<HomePage> {
             cvData.education!.department!,
             style: kTextStyle(15),
           ),
+          Row(
+            children: [
+              Text(
+                '${cvDataContainer.cvData.education!.startDate!.formattedDate} - ',
+                style: kTextStyle(13, isBold: true),
+              ),
+              Text(
+                DateTime.now().compareTo(cvData.education!.endDate!) < 0
+                    ? 'Present'
+                    : cvData.education!.endDate!.formattedDate,
+                style: kTextStyle(13, isBold: true),
+              )
+            ],
+          ),
           VerticalSpacing(15),
           Text(
             "Skills",
@@ -187,7 +212,7 @@ class _HomePageState extends State<HomePage> {
           ),
           VerticalSpacing(15),
           Text(
-            "Projects",
+            "Showcase projects",
             style: kTextStyle(23, isBold: true),
           ),
           ...cvData.projects!.map(

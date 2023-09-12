@@ -7,8 +7,7 @@ import 'package:hng_mobile_task_two/widgets/spacing.dart';
 import '../../utils/textstyle.dart';
 
 class ExperienceSection extends StatefulWidget {
-  CVDataContainer? cvDataContainer;
-  ExperienceSection({this.cvDataContainer, super.key});
+  ExperienceSection({super.key});
 
   @override
   State<ExperienceSection> createState() => _ExperienceSectionState();
@@ -68,6 +67,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                   ),
                   IconButton(
                     onPressed: () {
+                      int index = cvDataContainer.cvData.skills!.indexOf(skill);
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -77,8 +77,10 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                               "Do you want to delete this skill?",
                               style: kTextStyle(15),
                             ),
-                            action: () =>
-                                cvDataContainer.removeFromSkills(skill),
+                            action: () => {
+                              cvDataContainer.removeFromSkills(index),
+                              setState(() {})
+                            },
                             actionTitle: "Yes",
                             dismissalTitle: "No",
                           );
@@ -122,6 +124,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
         VerticalSpacing(20),
         ...cvDataContainer.cvData.projects!.map(
           (e) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,8 +136,58 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              projectTitleContoller.text = e.title!;
+                            });
+                            int index =
+                                cvDataContainer.cvData.projects!.indexOf(e);
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return CustomAlertDialog(
+                                  title: "Edit title",
+                                  content: TextField(
+                                    controller: projectTitleContoller,
+                                  ),
+                                  actionTitle: "Save",
+                                  dismissalTitle: "Cancel",
+                                  action: () {
+                                    Project project = cvDataContainer
+                                        .cvData.projects![index]
+                                        .copyWith(
+                                      title: projectTitleContoller.text,
+                                    );
+                                    cvDataContainer.editproject(project, index);
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.edit)),
+                      IconButton(
+                        onPressed: () {
+                          int index =
+                              cvDataContainer.cvData.projects!.indexOf(e);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return CustomAlertDialog(
+                                  title: "Delete project",
+                                  content: const Text(
+                                      "Do you want to delete this project?"),
+                                  actionTitle: "Yes",
+                                  dismissalTitle: "No",
+                                  action: () {
+                                    cvDataContainer.removeFromProjects(index);
+                                    setState(() {});
+                                  },
+                                );
+                              });
+                        },
+                        icon: const Icon(Icons.delete),
+                      ),
                     ],
                   )
                 ],

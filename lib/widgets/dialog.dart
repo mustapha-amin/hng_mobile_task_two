@@ -29,7 +29,8 @@ class CustomAlertDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            action;
+            action!.call();
+
             Navigator.of(context).pop();
           },
           child: Text(
