@@ -29,3 +29,4 @@ Make sure you have the following installed:
 -Android studio, IntelliJ IDEA or VS code
 
 ## App Demo link
+https://appetize.io/app/be5voj5kjo6u7irybsd4n7g4xm?device=pixel4&osVersion=12.0&scale=100
