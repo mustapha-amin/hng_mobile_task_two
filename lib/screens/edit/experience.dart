@@ -140,6 +140,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                           onPressed: () {
                             setState(() {
                               projectTitleContoller.text = e.title!;
+                              projectDetailController.text = e.detail!;
                             });
                             int index =
                                 cvDataContainer.cvData.projects!.indexOf(e);
@@ -147,10 +148,15 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                               context: context,
                               builder: (context) {
                                 return CustomAlertDialog(
-                                  title: "Edit title",
-                                  content: TextField(
-                                    controller: projectTitleContoller,
-                                  ),
+                                  title: "Edit project",
+                                  content: Column(children: [
+                                    TextField(
+                                      controller: projectTitleContoller,
+                                    ),
+                                    TextField(
+                                      controller: projectDetailController,
+                                    ),
+                                  ]),
                                   actionTitle: "Save",
                                   dismissalTitle: "Cancel",
                                   action: () {
@@ -202,6 +208,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
         VerticalSpacing(20),
         OutlinedButton(
           onPressed: () {
+            projectTitleContoller.clear();
             showDialog(
               context: context,
               builder: (context) {
