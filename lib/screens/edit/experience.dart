@@ -32,62 +32,88 @@ class _ExperienceSectionState extends State<ExperienceSection> {
         ),
         ...cvDataContainer.cvData.skills!.map(
           (skill) => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 width: size.width * .6,
                 child: Text(skill, style: kTextStyle(15)),
               ),
-              IconButton(
-                onPressed: () {
-                  int index = cvDataContainer.cvData.skills!.indexOf(skill);
-                  setState(() {
-                    skillController.text = skill;
-                  });
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CustomAlertDialog(
-                        title: "Edit Skill",
-                        content: TextField(
-                          style: kTextStyle(15),
-                          controller: skillController,
-                        ),
-                        action: () => cvDataContainer.editSkill(
-                            skillController.text, index),
-                        actionTitle: "Save",
-                        dismissalTitle: "Cancel",
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      int index = cvDataContainer.cvData.skills!.indexOf(skill);
+                      setState(() {
+                        skillController.text = skill;
+                      });
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CustomAlertDialog(
+                            title: "Edit Skill",
+                            content: TextField(
+                              style: kTextStyle(15),
+                              controller: skillController,
+                            ),
+                            action: () => cvDataContainer.editSkill(
+                                skillController.text, index),
+                            actionTitle: "Save",
+                            dismissalTitle: "Cancel",
+                          );
+                        },
                       );
                     },
-                  );
-                },
-                icon: const Icon(Icons.edit),
-              ),
-              IconButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CustomAlertDialog(
-                        title: "Delete Skill",
-                        content: Text(
-                          "Do you want to delete this skill?",
-                          style: kTextStyle(15),
-                        ),
-                        action: () => cvDataContainer.removeFromSkills(skill),
-                        actionTitle: "Yes",
-                        dismissalTitle: "No",
+                    icon: const Icon(Icons.edit),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CustomAlertDialog(
+                            title: "Delete Skill",
+                            content: Text(
+                              "Do you want to delete this skill?",
+                              style: kTextStyle(15),
+                            ),
+                            action: () =>
+                                cvDataContainer.removeFromSkills(skill),
+                            actionTitle: "Yes",
+                            dismissalTitle: "No",
+                          );
+                        },
                       );
                     },
-                  );
-                },
-                icon: const Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
+                  )
+                ],
               )
             ],
           ),
         ),
         VerticalSpacing(20),
         OutlinedButton(
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              skillController.text = '';
+            });
+            showDialog(
+              context: context,
+              builder: (context) {
+                return CustomAlertDialog(
+                  title: "Add Skills",
+                  content: TextField(
+                    controller: skillController,
+                  ),
+                  action: () =>
+                      cvDataContainer.addToSkills(skillController.text),
+                  actionTitle: "Yes",
+                  dismissalTitle: "No",
+                );
+              },
+            );
+          },
           child: Text(
             "Add a skill",
             style: kTextStyle(15),
@@ -128,15 +154,18 @@ class _ExperienceSectionState extends State<ExperienceSection> {
               builder: (context) {
                 return CustomAlertDialog(
                   title: "Add a project",
-                  content: Row(
-                    children: [
-                      TextField(
-                        controller: projectTitleContoller,
-                      ),
-                      TextField(
-                        controller: projectDetailController,
-                      ),
-                    ],
+                  content: SizedBox(
+                    height: size.height * .18,
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: projectTitleContoller,
+                        ),
+                        TextField(
+                          controller: projectDetailController,
+                        ),
+                      ],
+                    ),
                   ),
                   action: () => cvDataContainer.addToProjects(
                     Project(

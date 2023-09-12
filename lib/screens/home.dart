@@ -61,48 +61,95 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         children: [
-          SizedBox(
-            height: size.height * .18,
-            child: Scrollbar(
-              controller: scrollController,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 10),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        'assets/images/musty.png',
-                        width: size.width * .25,
+          Scrollbar(
+            controller: scrollController,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom: 10),
+              scrollDirection: Axis.horizontal,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          'assets/images/musty.png',
+                          width: size.width * .15,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${cvData.fullName}",
-                          style: kTextStyle(25, isBold: true),
-                          softWrap: true,
-                        ),
-                        Text(
-                          "Slack username: ${cvData.slackUsername}",
-                          style: kTextStyle(14),
-                        ),
-                        Text(
-                          "Github handle: ${cvData.githubHandle}",
-                          style: kTextStyle(14),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                      HorizontalSpacing(10),
+                      Text(
+                        "${cvData.fullName}",
+                        style: kTextStyle(25, isBold: true),
+                        softWrap: true,
+                      ),
+                    ],
+                  ),
+                  VerticalSpacing(5),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.email,
+                        color: Colors.grey,
+                      ),
+                      HorizontalSpacing(10),
+                      Text(
+                        cvData.email!,
+                        style: kTextStyle(13),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.call,
+                        color: Colors.grey,
+                      ),
+                      HorizontalSpacing(10),
+                      Text(
+                        '+2340${cvData.phoneNumber}',
+                        style: kTextStyle(13),
+                      )
+                    ],
+                  ),
+                  VerticalSpacing(10),
+                  Text(
+                    "Usernames:",
+                    style: kTextStyle(14, isBold: true),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/slack.png',
+                        width: size.width * .10,
+                      ),
+                      Text(
+                        "${cvData.slackUsername}",
+                        style: kTextStyle(14),
+                      ),
+                    ],
+                  ),
+                  VerticalSpacing(5),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/github.png',
+                        color: Colors.white,
+                        width: size.width * .10,
+                      ),
+                      Text(
+                        "${cvData.githubHandle}",
+                        style: kTextStyle(14),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
