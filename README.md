@@ -1,16 +1,31 @@
 # hng_mobile_task_two
 
-A new Flutter project.
+## Mobile CV Application
 
-## Getting Started
+## Objective
+The objective of this assignment was to develop and design a mobile application that serves as a comprehensive CV. This app showcases personal and professional details and enables both viewing and editing of the provided CV information.
 
-This project is a starting point for a Flutter application.
+## Features
+- Display personal information, including full name, Slack username, GitHub handle, a brief personal bio, etc.
 
-A few resources to get you started if this is your first Flutter project:
+- Display professional information including professional skills and some of the projects i've worked on
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Clean and organized presentation of CV information on the home/first page.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Editing capability with user-friendly fields for modifying CV data.
+
+- Real-time updates to reflect changes without manual refresh.
+
+- Beautiful and user friendly design
+
+## Prerequisites
+
+Make sure you have the following installed:
+
+-Flutter SDK
+
+-Dart
+
+-Android studio, IntelliJ IDEA or VS code
+
+## App Demo link
