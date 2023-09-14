@@ -154,6 +154,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                                       controller: projectTitleContoller,
                                     ),
                                     TextField(
+                                      maxLines: 5,
                                       controller: projectDetailController,
                                     ),
                                   ]),
@@ -209,6 +210,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
         OutlinedButton(
           onPressed: () {
             projectTitleContoller.clear();
+            projectDetailController.clear();
             showDialog(
               context: context,
               builder: (context) {

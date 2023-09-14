@@ -20,32 +20,36 @@ class CustomAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        title!,
-        style: kTextStyle(20, isBold: true),
-      ),
-      content: content,
-      actions: [
-        TextButton(
-          onPressed: () {
-            action!.call();
+    return Center(
+      child: SingleChildScrollView(
+        child: AlertDialog(
+          title: Text(
+            title!,
+            style: kTextStyle(20, isBold: true),
+          ),
+          content: content,
+          actions: [
+            TextButton(
+              onPressed: () {
+                action!.call();
 
-            Navigator.of(context).pop();
-          },
-          child: Text(
-            actionTitle!,
-            style: kTextStyle(15),
-          ),
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                actionTitle!,
+                style: kTextStyle(15),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                dismissalTitle!,
+                style: kTextStyle(15).copyWith(color: Colors.red),
+              ),
+            ),
+          ],
         ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(
-            dismissalTitle!,
-            style: kTextStyle(15).copyWith(color: Colors.red),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
